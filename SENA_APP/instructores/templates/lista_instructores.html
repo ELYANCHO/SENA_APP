@@ -1,0 +1,45 @@
+{% extends 'master.html' %}
+
+{% block title %}Listado de Instructores{% endblock %}
+
+{% block page_content %}
+<div style="padding: 2rem; max-width: 1400px; margin: 0 auto;">
+    <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); padding: 2rem; border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+        <h1 style="color: white; margin: 0; font-size: 2.5rem; font-weight: 700; text-align: center; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">
+            👨‍🏫 Listado de Instructores
+        </h1>
+    </div>
+
+    <div style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+        <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                <thead>
+                    <tr style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                        <th style="padding: 1.2rem 1rem; text-align: left; color: white; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.5px; border-bottom: 3px solid #047857;">Nombre</th>
+                        <th style="padding: 1.2rem 1rem; text-align: left; color: white; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.5px; border-bottom: 3px solid #047857;">Apellido</th>
+                        <th style="padding: 1.2rem 1rem; text-align: left; color: white; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.5px; border-bottom: 3px solid #047857;">Especialidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for instructor in lista_instructores %}
+                    <tr style="transition: all 0.3s ease; border-bottom: 1px solid #e5e7eb;" 
+                        onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.transform='scale(1.01)'" 
+                        onmouseout="this.style.backgroundColor='white'; this.style.transform='scale(1)'">
+                        <td style="padding: 1rem;">
+                            <a href="{% url 'instructores_details' instructor.documento_identidad %}" style="color: #10b981; text-decoration: none; font-weight: 500; transition: all 0.3s ease;" 
+                               onmouseover="this.style.color='#059669'; this.style.textDecoration='underline'" 
+                               onmouseout="this.style.color='#10b981'; this.style.textDecoration='none'">
+                                {{ instructor.nombre }}
+                            </a>
+                        </td>
+                        <td style="padding: 1rem; color: #374151;">{{ instructor.apellido }}</td>
+                        <td style="padding: 1rem; color: #374151;">{{ instructor.especialidad }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+   
+{% endblock %}

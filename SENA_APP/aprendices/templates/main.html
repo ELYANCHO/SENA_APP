@@ -1,0 +1,113 @@
+{% load static %}
+{% load bootstrap5 %}
+<!DOCTYPE html>
+<html lang="es">
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}SENA APP{% endblock %}</title>
+  {% bootstrap_css %}
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  {% block extra_head %}{% endblock %}
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="{% url 'main' %}" class="navbar-brand">
+                <span></span> SENA APP
+            </a>
+            <button class="navbar-toggle" onclick="toggleMenu()">☰</button>
+            <ul class="navbar-menu" id="navbarMenu">
+                <li><a href="{% url 'main' %}" class="nav-link" data-accent="#2ecc71">Inicio</a></li>
+                <li><a href="{% url 'aprendices' %}" class="nav-link" data-accent="#667eea">Aprendices</a></li>
+                <li><a href="{% url 'lista_instructores' %}" class="nav-link" data-accent="#f39c12">Instructores</a></li>
+                <li><a href="/programas/" class="nav-link" data-accent="#1abc9c">Programas</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+      {% block content %}
+      <div class="welcome-section">
+        <h2>Bienvenidos a la APP SENA</h2>
+        <h3>Aprendices ADSO</h3>
+        <p>Ver los <a href="{% url 'aprendices' %}" class="cta-button">aprendices</a></p>
+      </div>
+      {% endblock %}
+    </main>
+
+    <footer>
+        <div class="container">
+            <p><strong>SENA - Servicio Nacional de Aprendizaje</strong></p>
+            <p>Formación profesional integral para todos los colombianos</p>
+            <div class="social-links">
+                
+            </div>
+            
+        </div>
+    </footer>
+
+    {% bootstrap_javascript %}
+
+    <script>
+      function toggleMenu() {
+        const menu = document.getElementById('navbarMenu');
+        menu.classList.toggle('active');
+      }
+
+      // Helper: convert hex like #rrggbb to {r,g,b}
+      function hexToRgb(hex) {
+        const clean = hex.replace('#', '');
+        const bigint = parseInt(clean, 16);
+        const r = (bigint >> 16) & 255;
+        const g = (bigint >> 8) & 255;
+        const b = bigint & 255;
+        return { r, g, b };
+      }
+
+      function setAccent(hex) {
+        const { r, g, b } = hexToRgb(hex);
+        document.documentElement.style.setProperty('--accent-color', hex);
+        document.documentElement.style.setProperty('--accent-bg', `rgba(${r}, ${g}, ${b}, 0.28)`);
+      }
+
+      // Manage active link and accent color
+      document.addEventListener('DOMContentLoaded', () => {
+        const links = Array.from(document.querySelectorAll('.navbar-menu a.nav-link'));
+
+        // Set active based on current path
+        const path = window.location.pathname;
+        let matched = false;
+        links.forEach(link => {
+          // normalize href (may be absolute or relative)
+          const href = new URL(link.href, window.location.origin).pathname;
+          if (!matched && (href === path || (href === '/' && path === '/'))) {
+            links.forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+            const accent = link.dataset.accent || getComputedStyle(document.documentElement).getPropertyValue('--accent-color').trim() || '#2ecc71';
+            setAccent(accent);
+            matched = true;
+          }
+        });
+
+        // click handlers: set active and update accent
+        links.forEach(link => {
+          link.addEventListener('click', (e) => {
+            // for SPA behavior keep normal navigation; still update active immediately for UX
+            links.forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+            const accent = link.dataset.accent || '#2ecc71';
+            setAccent(accent);
+
+            if (window.innerWidth <= 768) {
+              document.getElementById('navbarMenu').classList.remove('active');
+            }
+          });
+        });
+      });
+    </script>
+</body>
+</html>

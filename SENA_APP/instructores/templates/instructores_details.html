@@ -1,0 +1,75 @@
+{% extends 'master.html' %}
+
+{% block title %}
+Detalle del Instructor - {{ instructor.name }} {{ instructor.last_name }}
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-success text-white">
+                <h3 class="mb-0">Información del Instructor</h3>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-md-4 fw-bold">Documento:</div>
+                    <div class="col-md-8">{{ instructor.documento_identidad }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4 fw-bold">Tipo de Documento:</div>
+                    <div class="col-md-8">{{ instructor.tipo_documento }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4 fw-bold">Nombre Completo:</div>
+                    <div class="col-md-8">{{ instructor.nombre }} {{ instructor.apellido }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4 fw-bold">Correo Electrónico:</div>
+                    <div class="col-md-8">{{ instructor.correo }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4 fw-bold">Teléfono:</div>
+                    <div class="col-md-8">{{ instructor.telefono }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4 fw-bold">Ciudad:</div>
+                    <div class="col-md-8">{{ instructor.ciudad }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4 fw-bold">Dirección:</div>
+                    <div class="col-md-8">{{ instructor.direccion }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4 fw-bold">Fecha de Nacimiento:</div>
+                    <div class="col-md-8">{{ instructor.fecha_nacimiento }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4 fw-bold">Nivel de Educación:</div>
+                    <div class="col-md-8">{{ instructor.nivel_educativo }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4 fw-bold">Especialidad:</div>
+                    <div class="col-md-8">{{ instructor.especialidad}}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4 fw-bold">Años de Experiencia:</div>
+                    <div class="col-md-8">{{ instructor.anos_experiencia }}</div>   
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4 fw-bold">Fecha de Vinculación:</div>
+                    <div class="col-md-8">{{ instructor.fecha_vinculacion }}</div>
+                </div>
+                {% comment %} <div class="row mb-3">
+                    <div class="col-md-4 fw-bold">Estado:</div>
+                    <div class="col-md-8">{{ instructor.activo }}</div>
+                </div> {% endcomment %}
+
+                <div class="mt-4 text-center">
+                    <a href="/instructores" class="btn btn-secondary">Volver a la lista</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
