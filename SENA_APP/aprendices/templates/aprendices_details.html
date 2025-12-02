@@ -5,44 +5,233 @@ Detalle del Aprendiz - {{ aprendiz.firstname }} {{ aprendiz.lastname }}
 {% endblock %}
 
 {% block page_content %}
-<div class="row justify-content-center">
-    <div class="col-md-8">
-        <div class="card shadow-sm border-0">
-            <div class="card-header bg-success text-white">
-                <h3 class="mb-0">Información del Aprendiz</h3>
-            </div>
-            <div class="card-body">
-                <div class="row mb-3">
-                    <div class="col-md-4 fw-bold">Documento:</div>
-                    <div class="col-md-8">{{ aprendiz.document }}</div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-4 fw-bold">Nombre Completo:</div>
-                    <div class="col-md-8">{{ aprendiz.firstname }} {{ aprendiz.lastname }}</div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-4 fw-bold">Programa:</div>
-                    <div class="col-md-8">{{ aprendiz.program }}</div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-4 fw-bold">Correo Electrónico:</div>
-                    <div class="col-md-8">{{ aprendiz.email }}</div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-4 fw-bold">Teléfono:</div>
-                    <div class="col-md-8">{{ aprendiz.phone }}</div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-4 fw-bold">Ciudad:</div>
-                    <div class="col-md-8">{{ aprendiz.city }}</div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-4 fw-bold">Fecha de Nacimiento:</div>
-                    <div class="col-md-8">{{ aprendiz.birthdate }}</div>
-                </div>
+<style>
+    .detail-card {
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .detail-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15) !important;
+        }
+        
+        .detail-header {
+            background: linear-gradient(135deg, #185e22ff 0%, #068517ff 100%);
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .detail-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        
+        .detail-header h3 {
+            position: relative;
+            z-index: 1;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        
+        .detail-body {
+            padding: 35px;
+            background: white;
+        }
 
-                <div class="mt-4 text-center">
-                    <a href="/aprendices" class="btn btn-secondary">Volver a la lista</a>
+        .profile-section {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+        }
+
+        .info-section {
+            flex: 1;
+        }
+
+        .profile-photo-container {
+            flex-shrink: 0;
+            width: 250px;
+        }
+
+        .profile-photo {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 4px solid #39b54a;
+            box-shadow: 0 10px 30px rgba(57, 181, 74, 0.2);
+            background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .profile-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-photo-placeholder {
+            font-size: 80px;
+            color: #39b54a;
+            opacity: 0.3;
+        }
+
+        .profile-name {
+            text-align: center;
+            margin-top: 15px;
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 1.1rem;
+        }
+        
+        .info-row {
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        
+        .info-row:hover {
+            background: linear-gradient(to right, #f8f9fa, white);
+            border-left-color: #39b54a;
+            transform: translateX(5px);
+        }
+        
+        .info-label {
+            color: #2d3748;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .info-label::before {
+            content: '●';
+            color: #39b54a;
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .info-value {
+            color: #4a5568;
+            font-size: 1rem;
+            padding-left: 24px;
+        }
+        
+        .btn-back {
+            padding: 12px 35px;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #6c757d 0%, #545b62 100%);
+            border: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+        
+        .btn-back:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(108, 117, 125, 0.3);
+            background: linear-gradient(135deg, #545b62 0%, #6c757d 100%);
+        }
+        
+        .actions-container {
+            margin-top: 35px;
+            padding-top: 25px;
+            border-top: 2px dashed #e2e8f0;
+        }
+
+        @media (max-width: 768px) {
+            .profile-section {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .profile-photo-container {
+                width: 200px;
+            }
+        }
+    </style>
+
+<div class="detail-container">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card detail-card shadow-sm border-0">
+                <div class="card-header detail-header bg-success text-white">
+                    <h3 class="mb-0">Información del Aprendiz</h3>
+                </div>
+                <div class="card-body detail-body">
+                    <div class="profile-section">
+                        <div class="info-section">
+                            <div class="info-row row mb-3">
+                                <div class="col-md-4 info-label fw-bold">Documento:</div>
+                                <div class="col-md-8 info-value">{{ aprendiz.document }}</div>
+                            </div>
+                            <div class="info-row row mb-3">
+                                <div class="col-md-4 info-label fw-bold">Nombre Completo:</div>
+                                <div class="col-md-8 info-value">{{ aprendiz.firstname }} {{ aprendiz.lastname }}</div>
+                            </div>
+                            <div class="info-row row mb-3">
+                                <div class="col-md-4 info-label fw-bold">Programa:</div>
+                                <div class="col-md-8 info-value">{{ aprendiz.program }}</div>
+                            </div>
+                            <div class="info-row row mb-3">
+                                <div class="col-md-4 info-label fw-bold">Correo Electrónico:</div>
+                                <div class="col-md-8 info-value">{{ aprendiz.email }}</div>
+                            </div>
+                            <div class="info-row row mb-3">
+                                <div class="col-md-4 info-label fw-bold">Teléfono:</div>
+                                <div class="col-md-8 info-value">{{ aprendiz.phone }}</div>
+                            </div>
+                            <div class="info-row row mb-3">
+                                <div class="col-md-4 info-label fw-bold">Ciudad:</div>
+                                <div class="col-md-8 info-value">{{ aprendiz.city }}</div>
+                            </div>
+                            <div class="info-row row mb-3">
+                                <div class="col-md-4 info-label fw-bold">Fecha de Nacimiento:</div>
+                                <div class="col-md-8 info-value">{{ aprendiz.birthdate }}</div>
+                            </div>
+                        </div>
+
+                        <div class="profile-photo-container">
+                            <div class="profile-photo">
+                                {% if aprendiz.photo %}
+                                    <img src="{{ aprendiz.photo.url }}" alt="Foto de {{ aprendiz.firstname }}">
+                                {% else %}
+                                    <div class="profile-photo-placeholder">
+                                        <i class="bi bi-person-circle"></i>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="profile-name">
+                                {{ aprendiz.firstname }} {{ aprendiz.lastname }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="actions-container mt-4 text-center">
+                        <a href="/aprendices" class="btn btn-secondary btn-back">Volver a la lista</a>
+                    </div>
                 </div>
             </div>
         </div>

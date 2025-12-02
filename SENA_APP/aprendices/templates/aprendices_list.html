@@ -4,7 +4,7 @@
 
 {% block page_content %}
 <div style="padding: 2rem; max-width: 1400px; margin: 0 auto;">
-    <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); padding: 2rem; border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+    <div style="background: linear-gradient(135deg, #636b68ff 0%, #131414ff 100%); padding: 2rem; border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
         <h1 style="color: white; margin: 0; font-size: 2.5rem; font-weight: 700; text-align: center; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">
             📋 Listado de Aprendices
         </h1>
@@ -19,7 +19,7 @@
                         <th style="padding: 1.2rem 1rem; text-align: left; color: white; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.5px; border-bottom: 3px solid #047857;">Nombre</th>
                         <th style="padding: 1.2rem 1rem; text-align: left; color: white; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.5px; border-bottom: 3px solid #047857;">Apellido</th>
                         <th style="padding: 1.2rem 1rem; text-align: left; color: white; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.5px; border-bottom: 3px solid #047857;">Email</th>
-                        <th style="padding: 1.2rem 1rem; text-align: left; color: white; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.5px; border-bottom: 3px solid #047857;">Teléfono</th>
+
                         <th style="padding: 1.2rem 1rem; text-align: left; color: white; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.5px; border-bottom: 3px solid #047857;">Programa</th>
                     </tr>
                 </thead>
@@ -30,7 +30,7 @@
                         onmouseout="this.style.backgroundColor='white'; this.style.transform='scale(1)'">
                         <td style="padding: 1rem; color: #374151; font-weight: 500;">{{ apprentice.document }}</td>
                         <td style="padding: 1rem;">
-                                     <a href="{% url 'aprendices_details' apprentice.document %}" style="color: #10b981; text-decoration: none; font-weight: 500; transition: all 0.3s ease;" 
+                                     <a href="{% url 'aprendices:aprendices_details' apprentice.document %}" style="color: #10b981; text-decoration: none; font-weight: 500; transition: all 0.3s ease;" 
                                onmouseover="this.style.color='#059669'; this.style.textDecoration='underline'" 
                                onmouseout="this.style.color='#10b981'; this.style.textDecoration='none'">
                                 {{ apprentice.firstname }}
@@ -38,7 +38,7 @@
                         </td>
                         <td style="padding: 1rem; color: #374151;">{{ apprentice.lastname }}</td>
                         <td style="padding: 1rem; color: #10b981; font-size: 0.9rem;">{{ apprentice.email }}</td>
-                        <td style="padding: 1rem; color: #374151;">{{ apprentice.phone }}</td>
+                        
                         <td style="padding: 1rem;">
                             <span style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.85rem; font-weight: 500; display: inline-block;">
                                 {{ apprentice.program }}

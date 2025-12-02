@@ -1,0 +1,106 @@
+  
+    .detail-card {
+        border-radius: 15px;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .detail-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.15) !important;
+    }
+    
+    .detail-header {
+        background: linear-gradient(135deg, #39b54a 0%, #2d8f3a 100%);
+        padding: 25px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .detail-header::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        animation: pulse 4s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); opacity: 0.5; }
+        50% { transform: scale(1.1); opacity: 0.8; }
+    }
+    
+    .detail-header h3 {
+        position: relative;
+        z-index: 1;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+    
+    .detail-body {
+        padding: 35px;
+        background: white;
+    }
+    
+    .info-row {
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        border-left: 4px solid transparent;
+    }
+    
+    .info-row:hover {
+        background: linear-gradient(to right, #f8f9fa, white);
+        border-left-color: #39b54a;
+        transform: translateX(5px);
+    }
+    
+    .info-label {
+        color: #2d3748;
+        font-weight: 600;
+        font-size: 0.95rem;
+        margin-bottom: 5px;
+        display: flex;
+        align-items: center;
+    }
+    
+    .info-label::before {
+        content: '●';
+        color: #39b54a;
+        margin-right: 10px;
+        font-size: 1.2rem;
+    }
+    
+    .info-value {
+        color: #4a5568;
+        font-size: 1rem;
+        padding-left: 24px;
+    }
+    
+    .btn-back {
+        padding: 12px 35px;
+        border-radius: 25px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        background: linear-gradient(135deg, #6c757d 0%, #545b62 100%);
+        border: none;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 0.9rem;
+    }
+    
+    .btn-back:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 25px rgba(108, 117, 125, 0.3);
+        background: linear-gradient(135deg, #545b62 0%, #6c757d 100%);
+    }
+    
+    .actions-container {
+        margin-top: 35px;
+        padding-top: 25px;
+        border-top: 2px dashed #e2e8f0;
+    }

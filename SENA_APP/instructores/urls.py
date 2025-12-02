@@ -1,6 +1,8 @@
 from django.urls import path
 from . import views
 
+app_name = 'instructores'
+
 urlpatterns = [
     # list view - mounted under project path 'instructores/'
     path('', views.instructores, name='lista_instructores'),
