@@ -1,0 +1,102 @@
+{% extends 'master.html' %}
+
+{% block title %}
+Detalle del Programa - {{ programa_detalle.nombre }}
+{% endblock %}
+
+{% block content %}
+
+<style>
+    .detail-card { border-radius: 15px; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .detail-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.15) !important; }
+    .detail-header { background: linear-gradient(135deg, #185e22ff 0%, #068517ff 100%); padding: 25px; position: relative; overflow: hidden; }
+    .detail-header::before { content: ''; position: absolute; top: -50%; right: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%); animation: pulse 4s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{ transform: scale(1); opacity: 0.5;} 50%{ transform: scale(1.1); opacity:0.8;} }
+    .detail-header h3 { position: relative; z-index:1; font-weight:600; letter-spacing:0.5px; }
+    .detail-body { padding: 35px; background: white; }
+    .info-row { padding: 15px; margin-bottom: 10px; border-radius: 10px; transition: all 0.3s ease; border-left: 4px solid transparent; }
+    .info-row:hover { background: linear-gradient(to right, #f8f9fa, white); border-left-color: #39b54a; transform: translateX(5px); }
+    .info-label { color: #2d3748; font-weight:600; font-size:0.95rem; margin-bottom:5px; display:flex; align-items:center; }
+    .info-label::before { content: '●'; color: #39b54a; margin-right:10px; font-size:1.2rem; }
+    .info-value { color: #4a5568; font-size:1rem; padding-left:24px; }
+    .btn-back { padding: 12px 35px; border-radius:25px; font-weight:500; transition: all 0.3s ease; background: linear-gradient(135deg, #6c757d 0%, #545b62 100%); border:none; text-transform:uppercase; letter-spacing:1px; font-size:0.9rem; }
+    .btn-back:hover { transform: scale(1.05); box-shadow: 0 10px 25px rgba(108,117,125,0.3); background: linear-gradient(135deg, #545b62 0%, #6c757d 100%); }
+    @media (max-width:768px) { .profile-section{ flex-direction:column; align-items:center;} .profile-photo-container{ width:200px;} }
+</style>
+
+<div class="detail-container">
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <div class="card detail-card shadow-sm border-0">
+        <div class="card-header detail-header bg-success text-white">
+          <h3 class="mb-0">Información del Programa</h3>
+        </div>
+        <div class="card-body detail-body">
+          <div class="info-section">
+            <div class="info-row row mb-3">
+              <div class="col-md-4 info-label fw-bold">Código:</div>
+              <div class="col-md-8 info-value">{{ programa_detalle.codigo }}</div>
+            </div>
+            <div class="info-row row mb-3">
+              <div class="col-md-4 info-label fw-bold">Nombre:</div>
+              <div class="col-md-8 info-value">{{ programa_detalle.nombre }}</div>
+            </div>
+            <div class="info-row row mb-3">
+              <div class="col-md-4 info-label fw-bold">Nivel de Formación:</div>
+              <div class="col-md-8 info-value">{{ programa_detalle.get_nivel_formacion_display }}</div>
+            </div>
+            <div class="info-row row mb-3">
+              <div class="col-md-4 info-label fw-bold">Modalidad:</div>
+              <div class="col-md-8 info-value">{{ programa_detalle.get_modalidad_display }}</div>
+            </div>
+            <div class="info-row row mb-3">
+              <div class="col-md-4 info-label fw-bold">Duración:</div>
+              <div class="col-md-8 info-value">{{ programa_detalle.duracion_meses }} meses ({{ programa_detalle.duracion_horas }} horas)</div>
+            </div>
+            <div class="info-row row mb-3">
+              <div class="col-md-4 info-label fw-bold">Centro de Formación:</div>
+              <div class="col-md-8 info-value">{{ programa_detalle.centro_formacion }} — {{ programa_detalle.regional }}</div>
+            </div>
+            <div class="info-row row mb-3">
+              <div class="col-md-4 info-label fw-bold">Estado:</div>
+              <div class="col-md-8 info-value">{{ programa_detalle.get_estado_display }}</div>
+            </div>
+            <div class="info-row row mb-3">
+              <div class="col-md-4 info-label fw-bold">Fecha de Creación:</div>
+              <div class="col-md-8 info-value">{{ programa_detalle.fecha_creacion }}</div>
+            </div>
+            <div class="info-row row mb-3">
+              <div class="col-md-4 info-label fw-bold">Descripción:</div>
+              <div class="col-md-8 info-value">{{ programa_detalle.descripcion }}</div>
+            </div>
+            <div class="info-row row mb-3">
+              <div class="col-md-4 info-label fw-bold">Competencias:</div>
+              <div class="col-md-8 info-value">{{ programa_detalle.competencias }}</div>
+            </div>
+            <div class="info-row row mb-3">
+              <div class="col-md-4 info-label fw-bold">Perfil de Egreso:</div>
+              <div class="col-md-8 info-value">{{ programa_detalle.perfil_egreso }}</div>
+            </div>
+            <div class="info-row row mb-3">
+              <div class="col-md-4 info-label fw-bold">Requisitos de Ingreso:</div>
+              <div class="col-md-8 info-value">{{ programa_detalle.requisitos_ingreso }}</div>
+            </div>
+          </div>
+
+          <div class="actions-container mt-4 text-center">
+            <a href="{% url 'programas:programas' %}" class="btn btn-secondary btn-back">Volver a la lista</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+
+
+
+
+
