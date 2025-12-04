@@ -1,0 +1,175 @@
+{% extends 'master.html' %}
+
+{% block title %}Detalle del Curso - {{ curso.nombre }}{% endblock %}
+
+{% block page_content %}
+
+<style>
+    .detail-card { border-radius: 15px; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .detail-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.15) !important; }
+    .detail-header { background: linear-gradient(135deg, #185e22ff 0%, #068517ff 100%); padding: 25px; position: relative; overflow: hidden; }
+    .detail-header::before { content: ''; position: absolute; top: -50%; right: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%); animation: pulse 4s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{ transform: scale(1); opacity: 0.5;} 50%{ transform: scale(1.1); opacity:0.8;} }
+    .detail-header h3 { position: relative; z-index:1; font-weight:600; letter-spacing:0.5px; }
+    .detail-body { padding: 35px; background: white; }
+    .info-row { padding: 15px; margin-bottom: 10px; border-radius: 10px; transition: all 0.3s ease; border-left: 4px solid transparent; }
+    .info-row:hover { background: linear-gradient(to right, #f8f9fa, white); border-left-color: #39b54a; transform: translateX(5px); }
+    .info-label { color: #2d3748; font-weight:600; font-size:0.95rem; margin-bottom:5px; display:flex; align-items:center; }
+    .info-label::before { content: '●'; color: #39b54a; margin-right:10px; font-size:1.2rem; }
+    .info-value { color: #4a5568; font-size:1rem; padding-left:24px; }
+    .btn-back { padding: 12px 35px; border-radius:25px; font-weight:500; transition: all 0.3s ease; background: linear-gradient(135deg, #6c757d 0%, #545b62 100%); border:none; text-transform:uppercase; letter-spacing:1px; font-size:0.9rem; }
+    .btn-back:hover { transform: scale(1.05); box-shadow: 0 10px 25px rgba(108,117,125,0.3); background: linear-gradient(135deg, #545b62 0%, #6c757d 100%); }
+    .section-title { background: linear-gradient(135deg, #185e22ff 0%, #068517ff 100%); color: white; padding: 15px; border-radius: 8px; margin-top: 25px; margin-bottom: 15px; font-weight: 600; }
+    .table-container { overflow-x: auto; margin-top: 20px; }
+    .table-container table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    .table-container thead { background: linear-gradient(135deg, #185e22ff 0%, #068517ff 100%); color: white; }
+    .table-container th { padding: 12px; text-align: left; font-weight: 600; }
+    .table-container td { padding: 10px 12px; border-bottom: 1px solid #e5e7eb; }
+    .table-container tbody tr:hover { background: #f8f9fa; }
+    @media (max-width:768px) { .profile-section{ flex-direction:column; align-items:center;} .profile-photo-container{ width:200px;} }
+</style>
+
+<div class="detail-container">
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <div class="card detail-card shadow-sm border-0">
+        <div class="card-header detail-header bg-success text-white">
+          <h3 class="mb-0">Información del Curso</h3>
+        </div>
+        <div class="card-body detail-body">
+          <div class="info-section">
+            <div class="info-row row mb-3">
+              <div class="col-md-4 info-label fw-bold">Código:</div>
+              <div class="col-md-8 info-value">{{ curso.codigo }}</div>
+            </div>
+            <div class="info-row row mb-3">
+              <div class="col-md-4 info-label fw-bold">Nombre:</div>
+              <div class="col-md-8 info-value">{{ curso.nombre }}</div>
+            </div>
+            <div class="info-row row mb-3">
+              <div class="col-md-4 info-label fw-bold">Programa:</div>
+              <div class="col-md-8 info-value">{{ curso.programa.nombre }}</div>
+            </div>
+            <div class="info-row row mb-3">
+              <div class="col-md-4 info-label fw-bold">Instructor Coordinador:</div>
+              <div class="col-md-8 info-value">{{ curso.instructor_coordinador.nombre_completo }}</div>
+            </div>
+            <div class="info-row row mb-3">
+              <div class="col-md-4 info-label fw-bold">Fecha de Inicio:</div>
+              <div class="col-md-8 info-value">{{ curso.fecha_inicio }}</div>
+            </div>
+            <div class="info-row row mb-3">
+              <div class="col-md-4 info-label fw-bold">Fecha de Finalización:</div>
+              <div class="col-md-8 info-value">{{ curso.fecha_fin }}</div>
+            </div>
+            <div class="info-row row mb-3">
+              <div class="col-md-4 info-label fw-bold">Horario:</div>
+              <div class="col-md-8 info-value">{{ curso.horario }}</div>
+            </div>
+            <div class="info-row row mb-3">
+              <div class="col-md-4 info-label fw-bold">Aula/Ambiente:</div>
+              <div class="col-md-8 info-value">{{ curso.aula }}</div>
+            </div>
+            <div class="info-row row mb-3">
+              <div class="col-md-4 info-label fw-bold">Cupos Máximos:</div>
+              <div class="col-md-8 info-value">{{ curso.cupos_maximos }}</div>
+            </div>
+            <div class="info-row row mb-3">
+              <div class="col-md-4 info-label fw-bold">Cupos Disponibles:</div>
+              <div class="col-md-8 info-value">{{ curso.cupos_disponibles }}</div>
+            </div>
+            <div class="info-row row mb-3">
+              <div class="col-md-4 info-label fw-bold">Porcentaje de Ocupación:</div>
+              <div class="col-md-8 info-value">{{ curso.porcentaje_ocupacion|floatformat:1 }}%</div>
+            </div>
+            <div class="info-row row mb-3">
+              <div class="col-md-4 info-label fw-bold">Estado:</div>
+              <div class="col-md-8 info-value">
+                <span style="background: linear-gradient(135deg, #185e22ff 0%, #068517ff 100%); color: white; padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.85rem; font-weight: 500; display: inline-block;">
+                  {{ curso.get_estado_display }}
+                </span>
+              </div>
+            </div>
+            <div class="info-row row mb-3">
+              <div class="col-md-4 info-label fw-bold">Observaciones:</div>
+              <div class="col-md-8 info-value">{{ curso.observaciones|default:"Sin observaciones" }}</div>
+            </div>
+            <div class="info-row row mb-3">
+              <div class="col-md-4 info-label fw-bold">Fecha de Registro:</div>
+              <div class="col-md-8 info-value">{{ curso.fecha_registro }}</div>
+            </div>
+          </div>
+
+          <!-- Instructores Section -->
+          <div class="section-title">👨‍🏫 Instructores del Curso</div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Rol</th>
+                  <th>Fecha de Asignación</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for instructor_curso in instructores_curso %}
+                <tr>
+                  <td>{{ instructor_curso.instructor.nombre_completo }}</td>
+                  <td>{{ instructor_curso.rol }}</td>
+                  <td>{{ instructor_curso.fecha_asignacion }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                  <td colspan="3" style="text-align: center; color: #999;">No hay instructores asignados</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Aprendices Section -->
+          <div class="section-title">👥 Aprendices Inscritos</div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Documento</th>
+                  <th>Nombre</th>
+                  <th>Estado en Curso</th>
+                  <th>Fecha de Inscripción</th>
+                  <th>Nota Final</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for aprendiz_curso in aprendices_curso %}
+                <tr>
+                  <td>{{ aprendiz_curso.aprendiz.document }}</td>
+                  <td>{{ aprendiz_curso.aprendiz.nombre }}</td>
+                  <td>
+                    <span style="background: linear-gradient(135deg, #185e22ff 0%, #068517ff 100%); color: white; padding: 0.3rem 0.6rem; border-radius: 15px; font-size: 0.8rem; font-weight: 500; display: inline-block;">
+                      {{ aprendiz_curso.get_estado_display }}
+                    </span>
+                  </td>
+                  <td>{{ aprendiz_curso.fecha_inscripcion }}</td>
+                  <td>{{ aprendiz_curso.nota_final|default:"—" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                  <td colspan="5" style="text-align: center; color: #999;">No hay aprendices inscritos</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+
+          <div class="actions-container mt-4 text-center">
+            <a href="{% url 'cursos:lista_cursos' %}" class="btn btn-secondary btn-back">Volver a la Lista</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

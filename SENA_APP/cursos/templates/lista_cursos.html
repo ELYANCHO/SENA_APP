@@ -1,0 +1,56 @@
+{% extends "master.html" %}
+
+{% block title %}Listado de Cursos{% endblock %}
+
+{% block page_content %}
+<div style="padding: 2rem; max-width: 1400px; margin: 0 auto;">
+    <div style="background: linear-gradient(135deg, #636b68ff 0%, #131414ff 100%); padding: 2rem; border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+        <h1 style="color: white; margin: 0; font-size: 2.5rem; font-weight: 700; text-align: center; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">
+            🎓 Listado de Cursos
+        </h1>
+    </div>
+
+    <div style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+        <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                <thead>
+                    <tr style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                        <th style="padding: 1.2rem 1rem; text-align: left; color: white; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.5px; border-bottom: 3px solid #047857;">Código</th>
+                        <th style="padding: 1.2rem 1rem; text-align: left; color: white; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.5px; border-bottom: 3px solid #047857;">Nombre</th>
+                        <th style="padding: 1.2rem 1rem; text-align: left; color: white; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.5px; border-bottom: 3px solid #047857;">Programa</th>
+                        <th style="padding: 1.2rem 1rem; text-align: left; color: white; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.5px; border-bottom: 3px solid #047857;">Inicio</th>
+                        <th style="padding: 1.2rem 1rem; text-align: left; color: white; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.5px; border-bottom: 3px solid #047857;">Fin</th>
+                        <th style="padding: 1.2rem 1rem; text-align: left; color: white; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.5px; border-bottom: 3px solid #047857;">Estado</th>
+                        <th style="padding: 1.2rem 1rem; text-align: left; color: white; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.5px; border-bottom: 3px solid #047857;">Cupos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for curso in lista_cursos %}
+                    <tr style="transition: all 0.3s ease; border-bottom: 1px solid #e5e7eb;" 
+                        onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.transform='scale(1.01)'" 
+                        onmouseout="this.style.backgroundColor='white'; this.style.transform='scale(1)'">
+                        <td style="padding: 1rem; color: #374151; font-weight: 500;">{{ curso.codigo }}</td>
+                        <td style="padding: 1rem;">
+                            <a href="{% url 'cursos:detalle_curso' curso.id %}" style="color: #10b981; text-decoration: none; font-weight: 500; transition: all 0.3s ease;" 
+                               onmouseover="this.style.color='#059669'; this.style.textDecoration='underline'" 
+                               onmouseout="this.style.color='#10b981'; this.style.textDecoration='none'">
+                                {{ curso.nombre }}
+                            </a>
+                        </td>
+                        <td style="padding: 1rem; color: #374151;">{{ curso.programa }}</td>
+                        <td style="padding: 1rem; color: #374151; font-size: 0.9rem;">{{ curso.fecha_inicio }}</td>
+                        <td style="padding: 1rem; color: #374151; font-size: 0.9rem;">{{ curso.fecha_fin }}</td>
+                        <td style="padding: 1rem;">
+                            <span style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.85rem; font-weight: 500; display: inline-block;">
+                                {{ curso.get_estado_display }}
+                            </span>
+                        </td>
+                        <td style="padding: 1rem; color: #374151;">{{ curso.cupos_maximos }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

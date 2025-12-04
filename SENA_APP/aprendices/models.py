@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class aprendices(models.Model):
+class Aprendiz(models.Model):
     document = models.CharField(max_length=20, primary_key=True)
     firstname = models.CharField(max_length=50)
     lastname = models.CharField(max_length=50)
@@ -13,3 +13,6 @@ class aprendices(models.Model):
     
     def __str__(self):
         return f'{self.document} {self.firstname} {self.lastname}'
+    
+    def nombre(self):
+        return f'{self.firstname} {self.lastname}'

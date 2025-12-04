@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import aprendices
+from .models import Aprendiz
 # Register your models here.
 
-admin.site.register(aprendices)
+admin.site.register(Aprendiz)
