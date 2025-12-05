@@ -230,7 +230,23 @@ Detalle del Aprendiz - {{ aprendiz.firstname }} {{ aprendiz.lastname }}
                     </div>
 
                     <div class="actions-container mt-4 text-center">
-                        <a href="/aprendices" class="btn btn-secondary btn-back">Volver a la lista</a>
+                        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                            <a href="/aprendices/" style="padding: 12px 30px; background: linear-gradient(135deg, #6c757d 0%, #545b62 100%); color: white; text-decoration: none; border-radius: 25px; font-weight: 600; transition: all 0.3s ease; font-size: 0.9rem; letter-spacing: 0.5px;" 
+                               onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 10px 25px rgba(108, 117, 125, 0.3)'" 
+                               onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
+                                ← Volver a la lista
+                            </a>
+                            <a href="/aprendices/{{ aprendiz.document }}/editar/" style="padding: 12px 30px; background: linear-gradient(135deg, #39b54a 0%, #2d8659 100%); color: white; text-decoration: none; border-radius: 25px; font-weight: 600; transition: all 0.3s ease; font-size: 0.9rem; letter-spacing: 0.5px;" 
+                               onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 10px 25px rgba(57, 181, 74, 0.3)'" 
+                               onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
+                                ✎ Editar
+                            </a>
+                            <a href="/aprendices/{{ aprendiz.document }}/eliminar/" style="padding: 12px 30px; background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); color: white; text-decoration: none; border-radius: 25px; font-weight: 600; transition: all 0.3s ease; font-size: 0.9rem; letter-spacing: 0.5px;" 
+                               onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 10px 25px rgba(220, 38, 38, 0.3)'" 
+                               onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
+                                🗑️ Eliminar
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
