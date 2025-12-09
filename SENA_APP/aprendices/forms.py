@@ -12,7 +12,6 @@ class AprendizForm(forms.ModelForm):
             'firstname',
             'lastname',
             'phone',
-            
             'email',
             'birthdate',
             'city',

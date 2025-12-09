@@ -1,0 +1,114 @@
+{% extends "master.html" %}
+
+{% block title %}Eliminar Instructor{% endblock %}
+
+{% block page_content %}
+<div style="padding: 2rem; max-width: 600px; margin: 0 auto;">
+    <!-- Warning Header -->
+    <div style="background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); padding: 2rem; border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.2); text-align: center;">
+        <h1 style="color: white; margin: 0; font-size: 2.2rem; font-weight: 700; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">
+            Eliminar Instructor
+        </h1>
+        <p style="color: rgba(255,255,255,0.95); margin-top: 10px; font-size: 1rem;">Esta accion no se puede deshacer</p>
+    </div>
+
+    <!-- Confirmation Box -->
+    <div style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1); padding: 2rem; border-left: 5px solid #dc2626;">
+        <!-- Warning Message -->
+        <div style="background: #fef2f2; border: 2px solid #fecaca; border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem;">
+            <p style="color: #7f1d1d; margin: 0; font-size: 1rem; line-height: 1.6;">
+                <strong>Advertencia:</strong> Estas a punto de eliminar permanentemente al instructor <strong>{{ object.nombre }} {{ object.apellido }}</strong>. 
+                Esta accion <strong>no se puede deshacer</strong> y se perderan todos los datos asociados.
+            </p>
+        </div>
+
+        <!-- Instructor Info -->
+        <div style="background: #f9fafb; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem; border-left: 4px solid #6b7280;">
+            <h3 style="color: #1f2937; margin-top: 0; margin-bottom: 1rem; font-size: 1.1rem;">Informacion del Instructor:</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div>
+                    <p style="color: #6b7280; font-size: 0.85rem; margin: 0; text-transform: uppercase; letter-spacing: 0.5px;">Nombre</p>
+                    <p style="color: #1f2937; font-size: 1rem; font-weight: 600; margin: 5px 0 0 0;">{{ object.nombre }}</p>
+                </div>
+                <div>
+                    <p style="color: #6b7280; font-size: 0.85rem; margin: 0; text-transform: uppercase; letter-spacing: 0.5px;">Apellido</p>
+                    <p style="color: #1f2937; font-size: 1rem; font-weight: 600; margin: 5px 0 0 0;">{{ object.apellido }}</p>
+                </div>
+                <div>
+                    <p style="color: #6b7280; font-size: 0.85rem; margin: 0; text-transform: uppercase; letter-spacing: 0.5px;">Email</p>
+                    <p style="color: #1f2937; font-size: 1rem; font-weight: 600; margin: 5px 0 0 0;">{{ object.email }}</p>
+                </div>
+                <div>
+                    <p style="color: #6b7280; font-size: 0.85rem; margin: 0; text-transform: uppercase; letter-spacing: 0.5px;">Especialidad</p>
+                    <p style="color: #1f2937; font-size: 1rem; font-weight: 600; margin: 5px 0 0 0;">{{ object.especialidad }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Confirmation Question -->
+        <div style="background: #fef2f2; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem; border-left: 4px solid #dc2626;">
+            <p style="color: #7f1d1d; margin: 0; font-weight: 600; font-size: 1rem;">
+                Estas seguro de que deseas eliminar a este instructor?
+            </p>
+        </div>
+
+        <!-- Buttons -->
+        <form method="post" style="display: flex; gap: 15px; justify-content: center;">
+            {% csrf_token %}
+            
+            <button type="submit" style="padding: 12px 40px; background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); color: white; border: none; border-radius: 25px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px;" 
+                    onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 10px 25px rgba(220, 38, 38, 0.3)'" 
+                    onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
+                Si, Eliminar
+            </button>
+            
+            <a href="/instructores/" style="padding: 12px 40px; background: linear-gradient(135deg, #6c757d 0%, #545b62 100%); color: white; text-decoration: none; border-radius: 25px; font-weight: 600; font-size: 1rem; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px; display: inline-block;" 
+               onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 10px 25px rgba(108, 117, 125, 0.3)'" 
+               onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
+                Cancelar
+            </a>
+        </form>
+    </div>
+
+    <!-- Info Box -->
+    <div style="margin-top: 2rem; padding: 1.5rem; background: #fef3c7; border-left: 4px solid #f59e0b; border-radius: 8px;">
+        <p style="color: #92400e; margin: 0; font-size: 0.9rem;">
+            <strong>Info:</strong> Si eliminas este instructor por error, deberas crear un nuevo registro. 
+            Los datos no podran ser recuperados.
+        </p>
+    </div>
+</div>
+
+<style>
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    div[style*="max-width: 600px"] {
+        animation: slideIn 0.4s ease-out;
+    }
+
+    @media (max-width: 768px) {
+        div[style*="grid-template-columns: 1fr 1fr"] {
+            grid-template-columns: 1fr !important;
+        }
+
+        div[style*="display: flex; gap: 15px"] {
+            flex-direction: column !important;
+        }
+
+        button,
+        a {
+            width: 100%;
+            text-align: center;
+        }
+    }
+</style>
+{% endblock %}

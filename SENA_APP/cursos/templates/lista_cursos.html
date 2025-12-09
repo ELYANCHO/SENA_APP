@@ -4,10 +4,15 @@
 
 {% block page_content %}
 <div style="padding: 2rem; max-width: 1400px; margin: 0 auto;">
-    <div style="background: linear-gradient(135deg, #636b68ff 0%, #131414ff 100%); padding: 2rem; border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
-        <h1 style="color: white; margin: 0; font-size: 2.5rem; font-weight: 700; text-align: center; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">
-            🎓 Listado de Cursos
+    <div style="background: linear-gradient(135deg, #636b68ff 0%, #131414ff 100%); padding: 2rem; border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.2); display: flex; justify-content: space-between; align-items: center;">
+        <h1 style="color: white; margin: 0; font-size: 2.5rem; font-weight: 700; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">
+            📚 Listado de Cursos
         </h1>
+        <a href="{% url 'cursos:crear_curso' %}" style="padding: 12px 30px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; text-decoration: none; border-radius: 25px; font-weight: 600; transition: all 0.3s ease; font-size: 0.95rem; letter-spacing: 0.5px;" 
+           onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 10px 25px rgba(16, 185, 129, 0.3)'" 
+           onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
+            ➕ Agregar Curso
+        </a>
     </div>
 
     <div style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
@@ -21,11 +26,11 @@
                         <th style="padding: 1.2rem 1rem; text-align: left; color: white; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.5px; border-bottom: 3px solid #047857;">Inicio</th>
                         <th style="padding: 1.2rem 1rem; text-align: left; color: white; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.5px; border-bottom: 3px solid #047857;">Fin</th>
                         <th style="padding: 1.2rem 1rem; text-align: left; color: white; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.5px; border-bottom: 3px solid #047857;">Estado</th>
-                        <th style="padding: 1.2rem 1rem; text-align: left; color: white; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.5px; border-bottom: 3px solid #047857;">Cupos</th>
+                        <th style="padding: 1.2rem 1rem; text-align: center; color: white; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.5px; border-bottom: 3px solid #047857;">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for curso in lista_cursos %}
+                    {% for curso in cursos %}
                     <tr style="transition: all 0.3s ease; border-bottom: 1px solid #e5e7eb;" 
                         onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.transform='scale(1.01)'" 
                         onmouseout="this.style.backgroundColor='white'; this.style.transform='scale(1)'">
@@ -45,7 +50,23 @@
                                 {{ curso.get_estado_display }}
                             </span>
                         </td>
-                        <td style="padding: 1rem; color: #374151;">{{ curso.cupos_maximos }}</td>
+                        <td style="padding: 1rem; text-align: center;">
+                            <a href="{% url 'cursos:detalle_curso' curso.id %}" style="padding: 0.4rem 0.8rem; background: #10b981; color: white; text-decoration: none; border-radius: 15px; font-size: 0.8rem; font-weight: 500; display: inline-block; margin-right: 5px; transition: all 0.3s ease;" 
+                               onmouseover="this.style.backgroundColor='#059669'; this.style.transform='scale(1.1)'" 
+                               onmouseout="this.style.backgroundColor='#10b981'; this.style.transform='scale(1)'">
+                                👁 Ver
+                            </a>
+                            <a href="{% url 'cursos:editar_curso' curso.id %}" style="padding: 0.4rem 0.8rem; background: #39b54a; color: white; text-decoration: none; border-radius: 15px; font-size: 0.8rem; font-weight: 500; display: inline-block; margin-right: 5px; transition: all 0.3s ease;" 
+                               onmouseover="this.style.backgroundColor='#2d8659'; this.style.transform='scale(1.1)'" 
+                               onmouseout="this.style.backgroundColor='#39b54a'; this.style.transform='scale(1)'">
+                                ✎ Editar
+                            </a>
+                            <a href="{% url 'cursos:eliminar_curso' curso.id %}" style="padding: 0.4rem 0.8rem; background: #dc2626; color: white; text-decoration: none; border-radius: 15px; font-size: 0.8rem; font-weight: 500; display: inline-block; transition: all 0.3s ease;" 
+                               onmouseover="this.style.backgroundColor='#991b1b'; this.style.transform='scale(1.1)'" 
+                               onmouseout="this.style.backgroundColor='#dc2626'; this.style.transform='scale(1)'">
+                                🗑️ Eliminar
+                            </a>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
