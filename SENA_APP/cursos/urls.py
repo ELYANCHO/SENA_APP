@@ -10,3 +10,4 @@ urlpatterns = [
     path('<int:curso_id>/eliminar/', views.CursoDeleteView.as_view(), name='eliminar_curso'),
     path('<int:curso_id>/', views.curso_details, name='detalle_curso'),
 ]
+
